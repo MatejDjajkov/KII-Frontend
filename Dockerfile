@@ -1,14 +1,9 @@
-FROM node:17-alpine3.15
+FROM eclipse-temurin:17-jdk-jammy
 
-WORKDIR /app
+ARG JAR_FILE=target/*.jar
 
-COPY package*.json ./
+COPY ${JAR_FILE} app.jar
 
-RUN npm install
+EXPOSE 8080
 
-COPY . .
-
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
